@@ -14,7 +14,8 @@ class Preprocessing:
         df.iloc[:,3:] =  (df.iloc[:,3:] - df.iloc[:,3:].mean())/df.iloc[:,3:].std()
         return df
     
-    def train_test_split(df,train_size = 0.67, test_size=0.33,random_state=0):
-        train = df.sample(frac= test_size,random_state = random_state)
+    def train_test_split(self,df,train_size=0.67,test_size = 0.33,random_state=0):
+        print(type(df))
+        train = df.sample(frac= 0.67,random_state = random_state)
         test = df.drop(train.index)
         return train, test
