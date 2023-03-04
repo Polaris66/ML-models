@@ -15,7 +15,6 @@ class Preprocessing:
         return df
     
     def train_test_split(self,df,train_size=0.67,test_size = 0.33,random_state=0):
-        print(type(df))
         train = df.sample(frac= 0.67,random_state = random_state)
         test = df.drop(train.index)
         return train, test

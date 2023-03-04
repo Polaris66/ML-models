@@ -10,11 +10,13 @@ class Perceptron:
         while True:
             misclassifications = 0
             for i in range(X.shape[0]):
-                X_i = X.iloc[i,:]
-                y_i = y.iloc[i,:]
+                X_i = X.iloc[i]
+                y_i = y.iloc[i]
                 if y_i*(np.dot(self.weight,X_i))<=0:
                     self.weight = self.weight+y_i*X_i
                     misclassifications+=1
+            print(self.weight)
+            print(misclassifications)
             if misclassifications==0:
                 break
 
