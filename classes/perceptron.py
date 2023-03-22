@@ -21,7 +21,8 @@ class Perceptron:
                 break
 
     def predict(self,X):
-        prediction = np.empty()
+        X["bias"] = 1
+        prediction = []
         for i in range(X.shape[0]):
             X_i = X.iloc[i,:]
             if np.dot(X_i,self.weight)>0:
