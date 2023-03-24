@@ -1,6 +1,9 @@
+from matplotlib import mlab
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from scipy.stats import norm
+import scipy
 
 
 class fischer:
@@ -55,15 +58,26 @@ class fischer:
             else:
                 self.s2 += (np.matmul(self.weight.T,
                                       X[i])-np.matmul(self.weight.T, self.m2))**2
-        self.s1 = np.sqrt(self.s1)
-        self.s2 = np.sqrt(self.s2)
-        self.point = self.generative(np.matmul(self.weight.T, self.m1).item(),
-                                     np.matmul(self.weight.T, self.m2).item(),
+        self.s1 /= self.n1
+        self.s2 /= self.n2
+        self.s1 = np.sqrt(self.s1.item())
+        self.s2 = np.sqrt(self.s2.item())
+        self.m1p = np.matmul(self.weight.T, self.m1).item()
+        self.m2p = np.matmul(self.weight.T, self.m2).item()
+        self.point = self.generative(self.m1p,
+                                     self.m2p,
                                      self.s1.item(),
                                      self.s2.item(),
                                      self.n1,
                                      self.n2
                                      )
+        print(self.m1p,
+              self.m2p,
+              self.s1.item(),
+              self.s2.item(),
+              self.n1,
+              self.n2)
+        print(self.point)
 
         self.plot(X, y)
 
@@ -81,10 +95,17 @@ class fischer:
                 )
         my_points_1 = np.array(list1)
         my_points_2 = np.array(list2)
-        y = np.zeros_like(my_points_1)+1
-        plt.plot(my_points_1, y, ls='dotted', c='red', lw=5)
-        y = np.zeros_like(my_points_2)+1
-        plt.plot(my_points_2, y, ls='dotted', c='blue', lw=5)
+        y1 = np.zeros_like(my_points_1)+1
+        plt.plot(my_points_1, y1, c='red', lw=1)
+        y2 = np.zeros_like(my_points_2)+2
+        plt.plot(my_points_2, y2, c='blue', lw=1)
+
+        x1 = np.linspace(-0.05, 0.04, 10000)
+        plt.plot(x1, -1*scipy.stats.norm.pdf(
+            x1, self.m1p, self.s1.item()), c='red')
+        x1 = np.linspace(-0.05, 0.04, 10000)
+        plt.plot(x1, -1*scipy.stats.norm.pdf(
+            x1, self.m2p, self.s2.item()), c='blue')
         plt.show()
 
         # Find Decision Boundary using Generative Approach
@@ -95,7 +116,16 @@ class fischer:
         b = 2*m1*(s2**2)-2*m2*(s1**2)
         c = (s2**2)*(m1**2)-(s1**2)*(m2**2) - 2 * \
             (s1**2)*(s2**2)*np.log((n1*s2)/(n2*s1))
+        print(np.roots([a, b, c]))
         return np.roots([a, b, c])[1]
+
+    # def generative(self, m1, m2, s1, s2, n1, n2):
+    #     a = 1/(2*s1**2) - 1/(2*s2**2)
+    #     b = m2/(s2**2) - m1/(s1**2)
+    #     c = m1**2 / (2*s1**2) - m2**2 / (2*s2**2) - np.log(s2/s1)
+    #     print("THE BOUNDARY POINT IS:")
+    #     print(np.roots([a, b, c]))
+    #     return np.roots([a, b, c])[0]
 
     def predict(self, X):
         y = []
@@ -106,9 +136,9 @@ class fischer:
             x = np.matmul(self.weight.T, X[i])
             print(x)
             if(x.item() > self.point):
-                y.append(1)
-            else:
                 y.append(-1)
+            else:
+                y.append(1)
         return y
 
 
@@ -134,3 +164,16 @@ y_test.replace('B', -1, inplace=True)
 model = fischer()
 model.fit(tr, y)
 predicted = model.predict(test)
+
+count = 0
+for i in range(len(predicted)):
+    print(str(predicted[i])+'-'+str(y_test.iloc[i]))
+    if predicted[i] != y_test.iloc[i]:
+        count += 1
+
+print("PREDICTED DATA")
+print(predicted)
+print("TEST DATA")
+print(y_test)
+print("NO OF MISCLASSIFICATIONS ON TEST DATA")
+print(count)
