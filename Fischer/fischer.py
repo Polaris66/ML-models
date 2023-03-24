@@ -100,10 +100,13 @@ class fischer:
         y2 = np.zeros_like(my_points_2)+2
         plt.plot(my_points_2, y2, c='blue', lw=1)
 
-        x1 = np.linspace(-0.05, 0.04, 10000)
+        # (left, right) = (-0.05, 0.04)
+        (left, right) = (-0.2, 0.1)
+        # x1 = np.linspace(-0.05, 0.04, 10000)
+        x1 = np.linspace(left, right, 10000)
         plt.plot(x1, -1*scipy.stats.norm.pdf(
             x1, self.m1p, self.s1.item()), c='red')
-        x1 = np.linspace(-0.05, 0.04, 10000)
+        x1 = np.linspace(left, right, 10000)
         plt.plot(x1, -1*scipy.stats.norm.pdf(
             x1, self.m2p, self.s2.item()), c='blue')
         plt.show()
@@ -111,21 +114,21 @@ class fischer:
         # Find Decision Boundary using Generative Approach
         # Too difficult :")
 
-    def generative(self, m1, m2, s1, s2, n1, n2):
-        a = s2**2-s1**2
-        b = 2*m1*(s2**2)-2*m2*(s1**2)
-        c = (s2**2)*(m1**2)-(s1**2)*(m2**2) - 2 * \
-            (s1**2)*(s2**2)*np.log((n1*s2)/(n2*s1))
-        print(np.roots([a, b, c]))
-        return np.roots([a, b, c])[1]
-
     # def generative(self, m1, m2, s1, s2, n1, n2):
-    #     a = 1/(2*s1**2) - 1/(2*s2**2)
-    #     b = m2/(s2**2) - m1/(s1**2)
-    #     c = m1**2 / (2*s1**2) - m2**2 / (2*s2**2) - np.log(s2/s1)
-    #     print("THE BOUNDARY POINT IS:")
+    #     a = s2**2-s1**2
+    #     b = 2*m1*(s2**2)-2*m2*(s1**2)
+    #     c = (s2**2)*(m1**2)-(s1**2)*(m2**2) - 2 * \
+    #         (s1**2)*(s2**2)*np.log((n1*s2)/(n2*s1))
     #     print(np.roots([a, b, c]))
-    #     return np.roots([a, b, c])[0]
+    #     return np.roots([a, b, c])[1]
+
+    def generative(self, m1, m2, s1, s2, n1, n2):
+        a = 1/(2*s1**2) - 1/(2*s2**2)
+        b = m2/(s2**2) - m1/(s1**2)
+        c = m1**2 / (2*s1**2) - m2**2 / (2*s2**2) - np.log(s2/s1)
+        print("THE BOUNDARY POINT IS:")
+        print(np.roots([a, b, c]))
+        return np.roots([a, b, c])[0]
 
     def predict(self, X):
         y = []
@@ -142,8 +145,8 @@ class fischer:
         return y
 
 
-df = pd.read_csv("feature_engineering_2.csv")
-# df = pd.read_csv("data.csv")
+df = pd.read_csv("cancer.csv")
+# df = pd.read_csv("feature_engineering_2.csv")
 df = df.dropna()
 
 
