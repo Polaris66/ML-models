@@ -27,11 +27,19 @@ class fischer:
         self.m1 /= self.n1
         self.m2 /= self.n2
 
+        # # Diagnosing error
+        # print("AVG OF CLASS 1:")
+        # print(self.m1)
+        # print("AVG OF CLASS 2:")
+        # print(self.m2)
+
+        # WORKING TILL HERE!!!!!!!!!!!!!!
+
         # Calculating the sb matrix
-        self.sb = np.dot((self.m2 - self.m1), (self.m2-self.m1).T)
+        self.sb = np.dot((self.m2.T - self.m1.T), (self.m2-self.m1).T)
 
         # Calculating the sw matrix
-        self.sw = np.zeros_like(self.sb)
+        self.sw = np.ones_like(self.sb)
         for i in range(X.shape[0]):
             if(y.iloc[i] == 1):
                 self.sw += np.dot((X.iloc[i]-self.m1), (X.iloc[i]-self.m1).T)
