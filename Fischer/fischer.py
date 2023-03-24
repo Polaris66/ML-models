@@ -1,6 +1,6 @@
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 
 
 class fischer:
@@ -15,7 +15,6 @@ class fischer:
         self.n1 = 0
         self.n2 = 0
         self.weight = np.zeros(X.shape[1])
-
         # Finding the class means
         for i in range(X.shape[0]):
             if(y.iloc[i] == 1):
@@ -26,44 +25,42 @@ class fischer:
                 self.n2 += 1
         self.m1 /= self.n1
         self.m2 /= self.n2
-
-        # # Diagnosing error
-        # print("AVG OF CLASS 1:")
-        # print(self.m1)
-        # print("AVG OF CLASS 2:")
-        # print(self.m2)
-
-        # WORKING TILL HERE!!!!!!!!!!!!!!
+        self.m1 = self.m1.to_numpy()
+        self.m1 = self.m1.reshape((self.m1.shape[0], 1))
+        self.m2 = self.m2.to_numpy()
+        self.m2 = self.m2.reshape((self.m2.shape[0], 1))
 
         # Calculating the sb matrix
-        self.sb = np.dot((self.m2.T - self.m1.T), (self.m2-self.m1).T)
-
+        self.sb = np.matmul((self.m2 - self.m1), (self.m2-self.m1).T)
         # Calculating the sw matrix
-        self.sw = np.ones_like(self.sb)
+        self.sw = np.zeros_like(self.sb)
+        X = X.to_numpy()
+
+        X = X.reshape((X.shape[0], X.shape[1], 1))
         for i in range(X.shape[0]):
             if(y.iloc[i] == 1):
-                self.sw += np.dot((X.iloc[i]-self.m1), (X.iloc[i]-self.m1).T)
+                self.sw += np.matmul((X[i]-self.m1),
+                                     (X[i]-self.m1).T)
             else:
-                self.sw += np.dot((X.iloc[i]-self.m2), (X.iloc[i]-self.m2).T)
-
+                self.sw += np.matmul((X[i]-self.m2),
+                                     (X[i]-self.m2).T)
         # Find the direction of w
-        self.weight = np.dot(np.linalg.inv(self.sw), self.m2-self.m1)
-
+        self.weight = np.matmul(
+            np.linalg.inv(self.sw), (self.m2-self.m1))
         # Finding the class variances
         for i in range(X.shape[0]):
             if(y.iloc[i] == 1):
-                self.s1 += np.dot(self.weight,
-                                  X.iloc[i])-np.dot(self.weight, self.m1)**2
+                self.s1 += (np.matmul(self.weight.T,
+                                      X[i])-np.matmul(self.weight.T, self.m1))**2
             else:
-                self.s2 += np.dot(self.weight,
-                                  X.iloc[i])-np.dot(self.weight, self.m2)**2
+                self.s2 += (np.matmul(self.weight.T,
+                                      X[i])-np.matmul(self.weight.T, self.m2))**2
         self.s1 = np.sqrt(self.s1)
         self.s2 = np.sqrt(self.s2)
-
-        self.point = self.generative(np.dot(self.weight, self.m1),
-                                     np.dot(self.weight, self.m2),
-                                     self.s1,
-                                     self.s2,
+        self.point = self.generative(np.matmul(self.weight.T, self.m1).item(),
+                                     np.matmul(self.weight.T, self.m2).item(),
+                                     self.s1.item(),
+                                     self.s2.item(),
                                      self.n1,
                                      self.n2
                                      )
@@ -76,17 +73,18 @@ class fischer:
         for i in range(X.shape[0]):
             if y.iloc[i] == 1:
                 list1.append(
-                    np.dot(self.weight, X.iloc[i])
+                    np.matmul(self.weight.T, X[i]).item()
                 )
             else:
                 list2.append(
-                    np.dot(self.weight, X.iloc[i])
+                    np.matmul(self.weight.T, X[i]).item()
                 )
-
-        my_points_1 = np.prod(list1)
-        my_points_2 = np.prod(list2)
-        plt.bar(['Projected Points'], [my_points_1], color='red')
-        plt.bar(['Projected Points'], [my_points_2], color='blue')
+        my_points_1 = np.array(list1)
+        my_points_2 = np.array(list2)
+        y = np.zeros_like(my_points_1)+1
+        plt.plot(my_points_1, y, ls='dotted', c='red', lw=5)
+        y = np.zeros_like(my_points_2)+1
+        plt.plot(my_points_2, y, ls='dotted', c='blue', lw=5)
         plt.show()
 
         # Find Decision Boundary using Generative Approach
@@ -97,26 +95,42 @@ class fischer:
         b = 2*m1*(s2**2)-2*m2*(s1**2)
         c = (s2**2)*(m1**2)-(s1**2)*(m2**2) - 2 * \
             (s1**2)*(s2**2)*np.log((n1*s2)/(n2*s1))
-        return np.roots([a, b, c])[0]
+        return np.roots([a, b, c])[1]
+
+    def predict(self, X):
+        y = []
+        X = X.to_numpy()
+        X = X.reshape((X.shape[0], X.shape[1], 1))
+
+        for i in range(X.shape[0]):
+            x = np.matmul(self.weight.T, X[i])
+            print(x)
+            if(x.item() > self.point):
+                y.append(1)
+            else:
+                y.append(-1)
+        return y
 
 
 df = pd.read_csv("feature_engineering_2.csv")
 # df = pd.read_csv("data.csv")
 df = df.dropna()
 
+
 tr = df.iloc[:375, :]
 test = df.iloc[375:, :]
 y = tr.iloc[:, 1]
 y_test = test.iloc[:, 1]
 
-y_test.replace('M', 1, inplace=True)
-y_test.replace('B', 0, inplace=True)
-
 tr = tr.drop(tr.columns[[0, 1]], axis=1)
 test = test.drop(test.columns[[0, 1]], axis=1)
 y.replace('M', 1, inplace=True)
-y.replace('B', 0, inplace=True)
+y.replace('B', -1, inplace=True)
+
+y_test.replace('M', 1, inplace=True)
+y_test.replace('B', -1, inplace=True)
 
 
 model = fischer()
 model.fit(tr, y)
+predicted = model.predict(test)
