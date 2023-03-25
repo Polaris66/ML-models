@@ -22,10 +22,12 @@ X_train, X_test = preprocessor.train_test_split(X,train_size=0.67,random_state=9
 y_train, y_test = preprocessor.train_test_split(y,train_size=0.67,random_state=9)
 
 perceptron = Perceptron()
-perceptron.fit(X_train,y_train)
+perceptron.fit(X_train,y_train,1000)
 
 y_pred = perceptron.predict(X_test)
 y_test = preprocessor.categorical_to_numerical(y_test)
+
+y_test = y_test.to_numpy()
 metrics = Metrics()
 misclassifications = metrics.misclassifications(y_pred,y_test)
 print(misclassifications)
