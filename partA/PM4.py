@@ -3,9 +3,9 @@ sys.path.append("..")
 
 import pandas as pd
 import numpy as np
-from classes.preprocessing import Preprocessing
-from classes.perceptron import Perceptron
-from classes.metrics import Metrics
+from helper.preprocessing import Preprocessing
+from perceptron.perceptron import Perceptron
+from helper.metrics import Metrics
 
 df = pd.read_csv("../data/cancer.csv")
 df.dropna(axis = 0,inplace=True)

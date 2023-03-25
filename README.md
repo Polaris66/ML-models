@@ -6,3 +6,6 @@ Team Members:
 1) Dhruv Arora
 2) Jatin Jindal
 3) Pradyumna Malladi
+
+B = 1
+M = 0/-1
