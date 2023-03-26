@@ -7,5 +7,5 @@ Team Members:
 2) Jatin Jindal
 3) Pradyumna Malladi
 
-B = 1
-M = 0/-1
+M = 1
+B = 0/-1

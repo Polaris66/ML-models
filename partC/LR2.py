@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 from helper.preprocessing import Preprocessing
 from helper.metrics import Metrics
-from Logistic.LogisticRegression import LogisticRegression
+from logistic.logisticRegression import LogisticRegression
 
 df = pd.read_csv("../data/cancer.csv")
 df = df.drop(df.columns[0],axis=1)
@@ -44,8 +44,4 @@ for i in range(3):
             X_test = preprocessor.normalize(X_test)
             y_pred = logistic.predict(X_test)
             y_test = np.array(y_test)
-
-            metrics = Metrics()
-            m = metrics.misclassifications(y_pred,y_test)
-            print(type[i], thres, lr, m)
             logistic.plot()

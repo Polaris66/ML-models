@@ -19,20 +19,37 @@ X = df.drop(df.columns[[0,1]],axis = 1)
 
 X = preprocessor.random_permutation(X)
 
-X_train, X_test = preprocessor.train_test_split(X,train_size=0.67,random_state=20)
-y_train, y_test = preprocessor.train_test_split(y,train_size=0.67,random_state=20)
+accuracy = 0
+precision = 0
+recall = 0
+epochs = 10000
 
-X_train = preprocessor.normalize(X_train)
+for i in range(10):
+    X_train, X_test = preprocessor.train_test_split(
+        X, train_size=0.67, random_state=i)
+    y_train, y_test = preprocessor.train_test_split(
+        y, train_size=0.67, random_state=i)
+    
+    X_train = preprocessor.normalize(X_train)
 
-perceptron = Perceptron()
-perceptron.fit(X_train,y_train,1000)
+    perceptron = Perceptron()
+    perceptron.fit(X_train, y_train,epochs)
 
-X_test = preprocessor.normalize(X_test)
-y_pred = perceptron.predict(X_test)
+    X_test = preprocessor.normalize(X_test)
 
-y_test = preprocessor.categorical_to_numerical(y_test)
+    y_pred = perceptron.predict(X_test)
+    y_test = preprocessor.categorical_to_numerical(y_test)
+    y_test = y_test.to_numpy()
 
-y_test = y_test.to_numpy()
-metrics = Metrics()
-misclassifications = metrics.misclassifications(y_pred,y_test)
-print(misclassifications)
+    metrics = Metrics(y_pred, y_test)
+    accuracy+=metrics.accuracy()
+    precision+=metrics.precision()
+    recall+=metrics.recall()
+
+accuracy/=10
+precision/=10
+recall/=10
+
+series = pd.Series([accuracy,precision,recall, 'N/A'],index=["accuracy","precision","recall", "epochs"])
+print(series)
+series.to_csv("PM4.csv", header=False)

@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 from helper.preprocessing import Preprocessing
 from helper.metrics import Metrics
-from Logistic.LogisticRegression import LogisticRegression
+from logistic.logisticRegression import LogisticRegression
 
 df = pd.read_csv("../data/cancer.csv")
 df = df.drop(df.columns[0],axis=1)
@@ -31,7 +31,7 @@ type = {
 for i in range(3):
     for thres in [0.3,0.4,0.5,0.6,0.7]:
         for lr in [0.01,0.001,0.0001]:
-            logistic = LogisticRegression(lr,100,thres,type[i], 'not')
+            logistic = LogisticRegression(lr,1000,thres,type[i], 'not')
             if i == 0:
                 logistic.fit_batch(X_train,y_train)
             elif i == 1:
@@ -39,11 +39,7 @@ for i in range(3):
             else:
                 logistic.fit_mini_batch(X_train,y_train)
 
-            X_test = preprocessor.normalize(X_test)
             y_pred = logistic.predict(X_test)
             y_test = np.array(y_test)
-
-            metrics = Metrics()
-            m = metrics.misclassifications(y_pred,y_test)
-            print(type[i], thres, lr, m)
-            logistic.plot()
+            metrics = Metrics(y_pred,y_test)
+            print(type[i],metrics.accuracy())

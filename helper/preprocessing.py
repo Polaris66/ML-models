@@ -12,13 +12,13 @@ class Preprocessing:
 
 
     def categorical_to_numerical(self,y):
-        y.replace('B',1,inplace=True)
-        y.replace('M',-1,inplace=True)
+        y.replace('M',1,inplace=True)
+        y.replace('B',-1,inplace=True)
         return y
     
     def categorical_to_numerical_l(self,y):
-        y.replace('B',1,inplace=True)
-        y.replace('M',0,inplace=True)
+        y.replace('M',1,inplace=True)
+        y.replace('B',0,inplace=True)
         return y
 
     def random_permutation(self,X):
