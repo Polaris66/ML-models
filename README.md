@@ -26,6 +26,8 @@ After normalizing data, the algorithm converges under 10000 epochs giving 94% ac
 
 Rearranging the feature order does not affect the result. The weight vector appears similarly rearranged.
 
+It is found that the data is linearly seperable when normalized.
+
 # Fischer's Linear Discriminant Analysis
 
 Fischer's LDA does not require training and directly gives 95% accuracy, 95% precision and 91% recall on normalized and imputed data.
@@ -74,3 +76,11 @@ After 10000 epochs (except for Fischer) following is the table of observations.
 | Mini Batch (LR2)| 0.968085106382979 | 0.958333333333333 | 0.958333333333333 |
 
 Logistic Regression Metrics have been run for 10000 epochs for only a specific learning rate and threshold and may vary based on others. However, it clearly outperforms both Fischer and Perceptron.
+
+Hence, LR2 is the best performing model. 
+
+This could be due to many reasons:
+* Logistic regression provides a probabilistic interpretation of the output.
+* It is basically perceptron with a sigmoid function.
+* Perceptron fails when data is not linearly seperable.
+* Fischer fails when there are more features.
