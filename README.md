@@ -58,11 +58,12 @@ Shows 95-97% accuracy, 92-97% precision and 94-95% recall with normalized data.
 
 ## Comparative Study
 
-After 10000 epochs (except for Fischer) following is the table of observations. (Normalized Data Only)
+After 10000 epochs (except for Fischer) following is the table of observations.
 
 | Models     | Accuracy          | Precision         | Recall            |
 | :--------- | :---------------- | :---------------- | :---------------- |
 | Perceptron (PM1) | 0.9129032258064516 | 0.9372268462822859 | 0.8501716001250819 |
+| Perceptron (PM2) | 0.9182795698924731 | 0.9053517145473006 | 0.8935902155966055 |
 | Perceptron (PM3 & PM4) | 0.943010752688172 | 0.9168756615637108 | 0.9373553746970792 |
 | Fischer (FLDM1 & FLDM2)  | 0.950531914893617 | 0.952921328366989 | 0.914998930095255 |
 | Batch (LR1)     | 0.9095744680851063 | 0.9365079365079365| 0.8194444444444444 |
