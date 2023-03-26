@@ -1,3 +1,6 @@
+## Note: 
+The code for the assignment can be found in the git repository at https://github.com/Polaris66/ML-models
+
 # ML Models
 
 Code for the First Assignment of the Machine Learning Course (2023 - Sem 2) Assignments.
