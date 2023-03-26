@@ -46,6 +46,6 @@ accuracy/=10
 precision/=10
 recall/=10
 
-series = pd.Series([accuracy,precision,recall, 'N/A'],index=["accuracy","precision","recall", "epochs"])
+series = pd.Series([accuracy,precision,recall, 'N/A', fischer.point[1]],index=["accuracy","precision","recall", "epochs", "Decision Boundary for latest Model"])
 print(series)
 series.to_csv("FLDM1.csv", header=False)
