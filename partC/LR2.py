@@ -27,7 +27,7 @@ type = {
 
 res = pd.DataFrame()
 
-epochs = 1000
+epochs = 100
 
 for i in range(3):
     for lr in [0.01,0.001,0.0001]:

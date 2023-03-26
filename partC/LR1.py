@@ -12,15 +12,12 @@ df = df.drop(df.columns[0],axis=1)
 
 preprocessor = Preprocessing()
 
-df.dropna(axis = 0,inplace=True)
+df = preprocessor.fillna(df)
 
 y = df.iloc[:,0]
 X = df.drop(df.columns[[0]],axis = 1)
 
 y = preprocessor.categorical_to_numerical_l(y)
-
-X_train, X_test = preprocessor.train_test_split(X,train_size=0.67,random_state=1)
-y_train, y_test = preprocessor.train_test_split(y,train_size=0.67,random_state=1)
 
 type = {
     0:"batch",
@@ -65,4 +62,5 @@ for i in range(3):
             print(row)
             res = pd.concat([res,row])
         logistic.plot()
+        
         res.to_csv("LR1.csv",header=False)

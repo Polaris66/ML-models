@@ -127,7 +127,7 @@ class LogisticRegression:
             if y_i < 10**(-15):
                 y_i+=10**(-15)
             elif y_i > 1-10**(-15):
-                y_i-=1-10**(-15)
+                y_i-=10**(-15)
             # Gradient of Error function
             c += t_i*np.log(y_i)+(1-t_i)*np.log(1-y_i)
         c *= -1.
@@ -150,4 +150,4 @@ class LogisticRegression:
         plt.title(self.type)
 
         # display the plot
-        plt.savefig('./graphs/'+str(self.type)+'-'+str(self.lr)+'-'+self.norm+'.png')
+        plt.savefig('./graphs/'+str(self.norm)+'/'+str(self.type)+'-'+str(self.lr)+'.png')
