@@ -1,8 +1,9 @@
-# ML_assignment_1
+# ML Models
 
 Code for the First Assignment of the Machine Learning Course (2023 - Sem 2) Assignments.
+Have Implemented Different ML Models using numpy and pandas.
 
-Team Members:
+Contributers:
 1) Dhruv Arora
 2) Jatin Jindal
 3) Pradyumna Malladi
