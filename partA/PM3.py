@@ -23,7 +23,7 @@ precision = 0
 recall = 0
 epochs = 10000
 
-for i in range(10):
+for i in range(20,30):
     X_train, X_test = preprocessor.train_test_split(
         X, train_size=0.67, random_state=i)
     y_train, y_test = preprocessor.train_test_split(

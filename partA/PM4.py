@@ -24,18 +24,18 @@ precision = 0
 recall = 0
 epochs = 10000
 
-for i in range(10):
+for i in range(20,30):
     X_train, X_test = preprocessor.train_test_split(
         X, train_size=0.67, random_state=i)
     y_train, y_test = preprocessor.train_test_split(
         y, train_size=0.67, random_state=i)
     
-    X_train = preprocessor.normalize(X_train)
+    # X_train = preprocessor.normalize(X_train)
 
     perceptron = Perceptron()
     perceptron.fit(X_train, y_train,epochs)
 
-    X_test = preprocessor.normalize(X_test)
+    # X_test = preprocessor.normalize(X_test)
 
     y_pred = perceptron.predict(X_test)
     y_test = preprocessor.categorical_to_numerical(y_test)
