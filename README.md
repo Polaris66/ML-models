@@ -38,11 +38,14 @@ Rearranging the feature order does not affect the result. The weight vector appe
 
 After running for a 1000 epochs it gives maximum of 97% accuracy. It is expected to go even higher with more epochs.
 
+
 ## Batch Gradient Descent
 
 Batch Gradient Descent shows a 74-89% accuracy, 63-89% precision and 76-81% recall with un-normalized data all decreasing with decrease in learning rate.
 
 With normalized data, it gives 88-93% accuracy, 82-92% precision and 89-95% recall.
+
+It is found with normalized data, increasing the learning rate for normalized data decreases the accuracy.
 
 ## Stochastic Gradient Descent
 
@@ -70,12 +73,12 @@ After 10000 epochs (except for Fischer) following is the table of observations.
 | Perceptron (PM4) | 0.9129032258064516 | 0.9372268462822859 | 0.8501716001250819 |
 | Fischer (FLDM1)  | 0.950531914893617 | 0.952921328366989 | 0.914998930095255 |
 | Fischer (FLDM2)  | 0.950531914893617 | 0.952921328366989 | 0.914998930095255 |
-| Batch (LR1)     | 0.9680851063829787 | 1.0 | 0.9166666666666666 |
-| Stochastic (LR1) | 0.9680851063829787  | 0.9583333333333334 | 0.9583333333333334 |
-| Mini Batch (LR1) | 0.973404255319149 | 0.9855072463768116 | 0.9444444444444444 |
-| Batch (LR2)     | 0.973404255319149 | 1.0 | 0.9305555555555556 |
-| Stochastic (LR2) | 0.973404255319149 | 0.9855072463768116 | 0.9444444444444444 |
-| Mini Batch (LR2)| 0.9680851063829787 | 1.0 | 0.9166666666666666 |
+| Batch (LR1)     | 0.9095744680851063 | 0.9365079365079365 | 0.9027777777777778 |
+| Stochastic (LR1) | 0.9202127659574468  | 0.9830508474576272 | 0.8055555555555556 |
+| Mini Batch (LR1) | 0.9414893617021277 | 0.9420289855072463 | 0.9444444444444444 |
+| Batch (LR2)     | 0.9095744680851063 | 0.8666666666666667 | 0.9027777777777778 |
+| Stochastic (LR2) | 0.9680851063829787 | 1.0 | 0.9166666666666666 |
+| Mini Batch (LR2)| 0.973404255319149 | 1.0 | 0.9305555555555556 |
 
 Logistic Regression Metrics have been run for 10000 epochs for only a specific learning rate and threshold and may vary based on others. However, it clearly outperforms both Fischer and Perceptron.
 
