@@ -11,7 +11,7 @@ class Fischer:
         c = m1**2 / (2*s1**2) - m2**2 / (2*s2**2) - np.log((n1*s2)/(n2*s1))
         return np.roots([a, b, c])
 
-    def fit(self, X, y):
+    def fit(self, X, y, k):
 
         # Initializing the attributes of model
         self.m1 = np.zeros(X.shape[1])
@@ -20,6 +20,7 @@ class Fischer:
         self.s2 = 0
         self.n1 = 0
         self.n2 = 0
+        self.k = k
         # Finding the class means
         for i in range(X.shape[0]):
             if(y.iloc[i] == 1):
@@ -81,15 +82,16 @@ class Fischer:
 
         for i in range(X.shape[0]):
             x = np.matmul(self.weight.T, X[i])
-            if(x.item() > self.point[1]):
+            if(x.item() > self.point[self.k]):
                 y.append(-1)
             else:
                 y.append(1)
         return np.array(y)
     
-    def plot(self, X, y):
+    def plot(self, X, y, n, j):
         list1 = []
         list2 = []
+        plt.clf()
         X = X.to_numpy()
         X = X.reshape((X.shape[0], X.shape[1], 1))
         for i in range(X.shape[0]):
@@ -117,7 +119,8 @@ class Fischer:
         x1 = np.linspace(left, right, 10000)
         plt.plot(x1, -1*norm.pdf(
             x1, self.m2p, self.s2.item()), c='blue')
-        plt.show()
+        # display the plot
+        plt.savefig('./graphs/'+str(n)+'-'+str(j)+'.png')
 
         # Find Decision Boundary using Generative Approach
         # Too difficult :")

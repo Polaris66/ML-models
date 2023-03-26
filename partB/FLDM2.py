@@ -25,13 +25,13 @@ precision = 0
 recall = 0
 
 for i in range(10):
-    X_train, X_test = preprocessor.train_test_split(X,train_size=0.67,random_state=1)
-    y_train, y_test = preprocessor.train_test_split(y,train_size=0.67,random_state=1)
+    X_train, X_test = preprocessor.train_test_split(X,train_size=0.67,random_state=i)
+    y_train, y_test = preprocessor.train_test_split(y,train_size=0.67,random_state=i)
 
     X_train = preprocessor.normalize(X_train)
 
     fischer = Fischer()
-    fischer.fit(X_train,y_train)
+    fischer.fit(X_train,y_train,1)
 
 
     X_test = preprocessor.normalize(X_test)
@@ -41,6 +41,7 @@ for i in range(10):
     accuracy+=metrics.accuracy()
     precision+=metrics.precision()
     recall+=metrics.recall()
+    fischer.plot(X_train, y_train,2,i)
 
 accuracy/=10
 precision/=10

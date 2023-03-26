@@ -124,6 +124,10 @@ class LogisticRegression:
             t_i = y[i]
             X_i = X[i]
             y_i = self.sigmoid(X_i)
+            if y_i < 10**(-15):
+                y_i+=10**(-15)
+            elif y_i > 1-10**(-15):
+                y_i-=1-10**(-15)
             # Gradient of Error function
             c += t_i*np.log(y_i)+(1-t_i)*np.log(1-y_i)
         c *= -1.
@@ -146,81 +150,4 @@ class LogisticRegression:
         plt.title(self.type)
 
         # display the plot
-        plt.savefig('./graphs/'+str(self.type)+'-'+str(self.lr)+'-'+str(self.thres)+'-'+self.norm+'.png')
-
-class Logistic_Regression_mini_batch:
-    def __init__(self, lr, iter):
-        self.lr = lr
-        self.iter = iter
-        self.weight = None
-        self.history = None
-        return
-
-    def sigmoid(self, X):
-        a = expit(np.dot(X, self.weight))
-        return a
-
-    def classify(self, prob):
-        if prob >= 0.5:
-            return 1
-        else:
-            return 0
-
-    def fit(self, X, Y):
-        # Add a bias column of all 1s
-        X["bias"] = 1
-        # Initialize the weights to 0
-        self.weight = np.ones(X.shape[1])
-        self.history = []
-        # Run the gradient descent algorithm
-        for i in range(self.iter):
-            # Update the weight based on the gradient with the current weight vector
-            grad_E = np.zeros(X.shape[1])
-            ind = 0
-            for n in range(X.shape[0]):
-                ind += 1
-                t_n = Y[n]
-                X_n = X.iloc[n, :]
-                y_n = self.sigmoid(X_n)
-                # Gradient of Error function
-                grad_E += (y_n-t_n)*X_n
-                if n % 20 == 0:  # Batch strength is 20
-                    self.weight -= self.lr*grad_E/ind
-                    grad_E = np.zeros(X.shape[1])
-                    ind = 0
-                elif n == X.shape[0]-1:
-                    self.weight -= self.lr*grad_E/ind
-                    ind = 0
-            # Count misclassifications
-            misclassifications = 0
-            # Print the misclassifications
-            if i % 10 == 0 or i < 10:
-                for j in range(X.shape[0]):
-                    X_j = X.iloc[j, :]
-                    Y_j = Y.iloc[j]
-                    if self.classify(self.sigmoid(X_j)) != Y_j:
-                        misclassifications += 1
-                self.history.append((i, self.cost(X, Y)))
-        return
-
-    def predict(self, X):
-        X["bias"] = 1
-        prediction = []
-        for i in range(X.shape[0]):
-            X_i = X.iloc[i, :]
-            prediction.append(self.classify(self.sigmoid(X_i)))
-        return prediction
-
-    def cost(self, X, Y):
-        cst = 1
-        for n in range(X.shape[0]):
-            t_n = Y[n]
-            X_n = X.iloc[n, :]
-            y_n = self.sigmoid(X_n)
-            if t_n == 1:
-                t_n -= 0.01
-            if y_n == 1:
-                y_n -= 0.01
-            # Gradient of Error function
-            cst *= np.log10((t_n*np.log(y_n)+(1-t_n)*np.log(1-y_n)))
-        return cst
+        plt.savefig('./graphs/'+str(self.type)+'-'+str(self.lr)+'-'+self.norm+'.png')

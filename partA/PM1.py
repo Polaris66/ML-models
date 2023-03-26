@@ -8,21 +8,22 @@ from perceptron.perceptron import Perceptron
 from helper.metrics import Metrics
 
 df = pd.read_csv("../data/cancer.csv")
-df.dropna(axis=0, inplace=True)
+df.dropna(axis = 0,inplace=True)
 
 
 preprocessor = Preprocessing()
 
-y = df.iloc[:, 1]
+y = df.iloc[:,1]
 y = preprocessor.categorical_to_numerical(y)
-X = df.drop(df.columns[[0, 1]], axis=1)
+X = df.drop(df.columns[[0,1]],axis = 1)
+
 
 accuracy = 0
 precision = 0
 recall = 0
 epochs = 10000
 
-for i in range(10):
+for i in range(20,30):
     X_train, X_test = preprocessor.train_test_split(
         X, train_size=0.67, random_state=i)
     y_train, y_test = preprocessor.train_test_split(
