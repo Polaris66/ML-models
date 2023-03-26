@@ -5,8 +5,8 @@ Have Implemented Different ML Models using numpy and pandas.
 
 Contributers:
 1) Dhruv Arora
-2) Jatin Jindal
-3) Pradyumna Malladi
+2) Pradyumna Malladi
+3) Jatin Jindal
 
 ### Labels
 
