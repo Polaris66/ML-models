@@ -83,7 +83,7 @@ class LogisticRegression:
                 X_j = X[j]
                 y_j = self.sigmoid(X_j)
                 # Gradient of Error function
-                grad += (y_j-t_j)*X_j
+                grad += (y_j-t_j)*X_j/10
             self.history.append((i, self.cost(X, y)))
         return
 
