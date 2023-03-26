@@ -38,7 +38,7 @@ for i in range(3):
     y_train, y_test = preprocessor.train_test_split(y,train_size=0.67,random_state=13)
 
     X_train = preprocessor.normalize(X_train)
-    logistic = LogisticRegression(0.01,epochs,0.7,type[i],'normalized')
+    logistic = LogisticRegression(0.0001,epochs,0.7,type[i],'not-normalized')
     if i == 0:
         logistic.fit_batch(X_train,y_train)
     elif i == 1:

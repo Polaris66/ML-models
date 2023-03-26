@@ -16,7 +16,7 @@ Benign = -1 for perceptron, FLDA
 
 Benign = 0 for logistic
 
-# Perceptron Algorithm
+# Perceptron
 
 After 10000 epochs, data gives 90-92% accuracy, 90-94% precision and 85-90% recall when tested using average of 10 different train-test splits.
 
@@ -50,6 +50,8 @@ With normalized data, it gives 95-97% accuracy, 91-97% precision and 89-96% reca
 
 ## Mini-Batch Gradient Descent
 
+There is no training involved in this model. It is the fastest model we currently have and is quite accurate on both normalized and raw data.
+
 It shows 86-89% accuracy, 84-88% precision, 83-85% recall with raw data.
 
 Shows 95-97% accuracy, 92-97% precision and 94-95% recall with normalized data.
@@ -63,7 +65,10 @@ After 10000 epochs (except for Fischer) following is the table of observations. 
 | Perceptron (PM1) | 0.9129032258064516 | 0.9372268462822859 | 0.8501716001250819 |
 | Perceptron (PM3 & PM4) | 0.943010752688172 | 0.9168756615637108 | 0.9373553746970792 |
 | Fischer (FLDM1 & FLDM2)  | 0.950531914893617 | 0.952921328366989 | 0.914998930095255 |
-| Batch (LR2)     | 0.968085106382979 | 1                 | 0.916666666666667 |
+| Batch (LR1)     | 0.9095744680851063 | 0.9365079365079365| 0.8194444444444444 |
+| Stochastic (LR1) | 0.9202127659574468  | 0.9830508474576272 | 0.8055555555555556 |
+| Mini Batch (LR1) | 0.925531914893617 | 0.881578947368421 | 0.9305555555555556 |
+| Batch (LR2)     | 0.973404255319149 | 0.958904109589041 | 0.9722222222222222 |
 | Stochastic (LR2) | 0.968085106382979 | 0.958333333333333 | 0.958333333333333 |
 | Mini Batch (LR2)| 0.968085106382979 | 0.958333333333333 | 0.958333333333333 |
 
