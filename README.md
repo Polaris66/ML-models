@@ -73,9 +73,9 @@ After 10000 epochs (except for Fischer) following is the table of observations.
 | Batch (LR1)     | 0.9095744680851063 | 0.9365079365079365| 0.8194444444444444 |
 | Stochastic (LR1) | 0.9202127659574468  | 0.9830508474576272 | 0.8055555555555556 |
 | Mini Batch (LR1) | 0.925531914893617 | 0.881578947368421 | 0.9305555555555556 |
-| Batch (LR2)     | 0.973404255319149 | 0.958904109589041 | 0.9722222222222222 |
-| Stochastic (LR2) | 0.968085106382979 | 0.958333333333333 | 0.958333333333333 |
-| Mini Batch (LR2)| 0.968085106382979 | 0.958333333333333 | 0.958333333333333 |
+| Batch (LR2)     | 0.973404255319149 | 1.0 | 0.9305555555555556 |
+| Stochastic (LR2) | 0.973404255319149 | 0.9855072463768116 | 0.9444444444444444 |
+| Mini Batch (LR2)| 0.9680851063829787 | 1.0 | 0.9166666666666666 |
 
 Logistic Regression Metrics have been run for 10000 epochs for only a specific learning rate and threshold and may vary based on others. However, it clearly outperforms both Fischer and Perceptron.
 
