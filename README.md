@@ -60,10 +60,11 @@ After 10000 epochs (except for Fischer) following is the table of observations. 
 
 | Models     | Accuracy          | Precision         | Recall            |
 | :--------- | :---------------- | :---------------- | :---------------- |
-| Perceptron | 0.943010752688172 | 0.916875661563711 | 0.937355374697079 |
-| Fischer    | 0.950531914893617 | 0.952921328366989 | 0.914998930095255 |
-| Batch      | 0.968085106382979 | 1                 | 0.916666666666667 |
-| Stochastic | 0.968085106382979 | 0.958333333333333 | 0.958333333333333 |
-| Mini Batch | 0.968085106382979 | 0.958333333333333 | 0.958333333333333 |
+| Perceptron (PM1) | 0.9129032258064516 | 0.9372268462822859 | 0.8501716001250819 |
+| Perceptron (PM3 & PM4) | 0.943010752688172 | 0.9168756615637108 | 0.9373553746970792 |
+| Fischer (FLDM1 & FLDM2)  | 0.950531914893617 | 0.952921328366989 | 0.914998930095255 |
+| Batch (LR2)     | 0.968085106382979 | 1                 | 0.916666666666667 |
+| Stochastic (LR2) | 0.968085106382979 | 0.958333333333333 | 0.958333333333333 |
+| Mini Batch (LR2)| 0.968085106382979 | 0.958333333333333 | 0.958333333333333 |
 
 Logistic Regression Metrics have been run for 10000 epochs for only a specific learning rate and threshold and may vary based on others. However, it clearly outperforms both Fischer and Perceptron.
